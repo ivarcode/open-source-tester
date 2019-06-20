@@ -47,6 +47,7 @@
     "typescript": "~3.4.3"
   },
   "localDependencies": {
+    "ngx-keyboard-shortcuts": "../ngx-keyboard-shortcuts/dist",
     "@mt-ng2/keyboard-shortcuts-module": "../mt-ng2-keyboard-shortcuts-module-develop/dist"
   }
 }
