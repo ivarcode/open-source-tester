@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {
   KeyboardShortcutCombination,
-  KeyboardKeys
+  KeyboardKeys,
+  KeyboardShortcutDirective,
+  IKeyboardShortcutListenerOptions
 } from '@mt-ng2/keyboard-shortcuts-module';
 
 @Component({
@@ -12,7 +14,10 @@ import {
 export class AppComponent {
   title = 'open-source-tester';
 
-  shortcutKeyCombination: KeyboardShortcutCombination = [KeyboardKeys.Alt, 'S'];
+  kslo: IKeyboardShortcutListenerOptions = {
+    keyBinding: [KeyboardKeys.Alt, 'S'],
+    description: 'test kslo'
+  };
 
   save(): void {
     // TODO
