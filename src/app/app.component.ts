@@ -3,7 +3,7 @@ import {
   KeyboardKeys,
   IKeyboardShortcutListenerOptions
 } from '@mt-ng2/keyboard-shortcuts-module';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +19,11 @@ export class AppComponent implements OnInit {
   outputElement = 'this is the output element default text';
   ksl: IKeyboardShortcutListenerOptions[] = [];
   kslo1: IKeyboardShortcutListenerOptions = {
-    keyBinding: [KeyboardKeys.Alt, 'S', 'U'],
+    keyBinding: [KeyboardKeys.Ctrl, 'P'],
     description: 'test kslo'
   };
+
+  constructor() {}
 
   ngOnInit() {
     this.ksl.push(this.kslo1);
