@@ -10,9 +10,22 @@
 <hr />
 <br />
 
-<a [keyboardShortcut]="kslo" (click)="save()">
+<a [keyboardShortcut]="kslo1" (click)="save()">
   <strong style="text-decoration: underline;">S</strong>ave
 </a>
+
+<hr />
+<h2>{{ outputElement }}</h2>
+
+<br />
+<br />
+<div>
+  <form [formGroup]="form">
+    <input type="text" placeholder="first key" formControlName="key1" />
+    <input type="text" placeholder="second key" formControlName="key2" />
+    <button type="button" (click)="addShortcut()">add new keyCombo</button>
+  </form>
+</div>
 
 <br />
 <router-outlet></router-outlet>

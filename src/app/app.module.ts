@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxKeyboardShortcutsModule } from 'ngx-keyboard-shortcuts';
 import { KeyboardShortcutModule } from '@mt-ng2/keyboard-shortcuts-module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -14,7 +15,9 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     NgxKeyboardShortcutsModule,
     KeyboardShortcutModule.forRoot(),
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
