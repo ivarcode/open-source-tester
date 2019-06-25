@@ -4,7 +4,9 @@ import {
   IListenerHandle,
   IKeyboardShortcutListenerConstructorObject,
   KeyboardKeys,
-  KeyboardShortcutsService
+  KeyboardShortcutsService,
+  IKeyboardShortcutListenerOptions,
+  KeyboardShortcutCombination
 } from '@mt-ng2/keyboard-shortcuts-module';
 
 @Component({
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const kb = [this.form.value.key1, this.form.value.key2];
     Object.assign(
       newListenerConstructor,
-      { handler: this.alertMessage },
+      { handler: this.alertMessage.bind(kb) },
       {
         keyBinding: kb,
         description: 'new shortcut'
@@ -63,7 +65,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private alertMessage(): void {
-    alert('shortcut successfully triggered');
+    const keyboardCombo: KeyboardShortcutCombination = this as any;
+    alert(
+      'shortcut ' +
+        keyboardCombo[0] +
+        ' + ' +
+        keyboardCombo[1] +
+        ' successfully triggered'
+    );
   }
 
   populateOutputArray(): void {
