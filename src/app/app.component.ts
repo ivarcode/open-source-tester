@@ -1,60 +1,75 @@
-import { Component, OnInit, NgModule } from '@angular/core';
-import {
-  KeyboardKeys,
-  IKeyboardShortcutListenerOptions
-} from '@mt-ng2/keyboard-shortcuts-module';
+import { Component, OnInit, NgModule, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import {
+  IListenerHandle,
+  IKeyboardShortcutListenerConstructorObject,
+  KeyboardKeys,
+  KeyboardShortcutsService
+} from '@mt-ng2/keyboard-shortcuts-module';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'open-source-tester';
   form = new FormGroup({
     key1: new FormControl(''),
     key2: new FormControl('')
   });
-  outputElement = 'this is the output element default text';
-  ksl: IKeyboardShortcutListenerOptions[] = [];
-  kslo1: IKeyboardShortcutListenerOptions = {
-    keyBinding: [KeyboardKeys.Ctrl, 'P'],
-    description: 'test kslo'
-  };
-
-  constructor() {}
+  outputArray = [];
+  listeners: any[];
+  constructor(private keyboardShortcutsService: KeyboardShortcutsService) {}
 
   ngOnInit() {
-    this.ksl.push(this.kslo1);
-    this.outputElement = '';
-    this.populateOutputElement();
+    this.listeners = [];
+    this.outputArray = [];
+    // populating element that displays current Keyboard Listeners
+    this.populateOutputArray();
   }
 
-  addShortcut(): void {
-    console.log(this.form.value.key1);
-    this.outputElement = '';
-    this.ksl.push({
-      keyBinding: [this.form.value.key1, this.form.value.key2],
-      description: 'add that shortcut legoo'
-    });
-    this.populateOutputElement();
-  }
-
-  populateOutputElement(): void {
-    console.log(this.ksl);
-    for (let kslo of this.ksl) {
-      for (let i = 0; i < kslo.keyBinding.length; i++) {
-        if (i !== 0) {
-          this.outputElement += ' + ';
-        }
-        this.outputElement += kslo.keyBinding[i];
-      }
-      this.outputElement += '\n';
+  ngOnDestroy() {
+    // destroys all the listeners when the component is destroyed
+    for (let i of this.listeners) {
+      i.listener.remove();
     }
   }
 
-  save(): void {
-    // TODO
+  // creates and adds listener object to array listeners
+  addShortcut(): void {
+    const newListenerConstructor = {} as IKeyboardShortcutListenerConstructorObject;
+    const kb = [this.form.value.key1, this.form.value.key2];
+    Object.assign(
+      newListenerConstructor,
+      { handler: this.alertMessage },
+      {
+        keyBinding: kb,
+        description: 'new shortcut'
+      }
+    );
+    this.listeners.push({
+      listener: this.keyboardShortcutsService.listen(newListenerConstructor),
+      output: kb[0] + ' + ' + kb[1]
+    });
+    this.populateOutputArray();
+  }
+
+  // delete's listener object from array at index i
+  deleteShortcut(i: number): void {
+    this.listeners[i].listener.remove();
+    this.listeners.splice(i, 1);
+    this.populateOutputArray();
+  }
+
+  private alertMessage(): void {
+    alert('shortcut successfully triggered');
+  }
+
+  populateOutputArray(): void {
+    this.outputArray = [];
+    for (let i of this.listeners) {
+      this.outputArray.push(i.output);
+    }
   }
 }

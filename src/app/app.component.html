@@ -10,22 +10,29 @@
 <hr />
 <br />
 
-<a [keyboardShortcut]="kslo1" (click)="save()">
-  <strong style="text-decoration: underline;">S</strong>ave
-</a>
-
-<hr />
-<h2>{{ outputElement }}</h2>
+<ul>
+  <li *ngFor="let elem of outputArray; let i = index">
+    <h3>{{ elem }}</h3>
+    <button (click)="deleteShortcut(i)">delete</button>
+  </li>
+</ul>
 
 <br />
 <br />
 <div>
   <form [formGroup]="form">
-    <input type="text" placeholder="first key" formControlName="key1" />
+    <select name="key1selector" formControlName="key1">
+      <option value="ctrl">Ctrl</option>
+      <option value="alt">Alt</option>
+      <option value="shift">Shift</option>
+      <option value="escape">Escape</option>
+    </select>
     <input type="text" placeholder="second key" formControlName="key2" />
     <button type="button" (click)="addShortcut()">add new keyCombo</button>
   </form>
 </div>
+
+<hr />
 
 <br />
 <router-outlet></router-outlet>
