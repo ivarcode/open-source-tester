@@ -10,10 +10,15 @@
 <hr />
 <br />
 
-<ul>
+<ul style="list-style-type: none;">
   <li *ngFor="let elem of outputArray; let i = index">
     <h3>{{ elem }}</h3>
-    <button (click)="deleteShortcut(i)">delete</button>
+    <button
+      (click)="deleteShortcut(i)"
+      style="background-color: black; color: red; font-size: 22px;"
+    >
+      <strong>delete</strong>
+    </button>
   </li>
 </ul>
 
@@ -21,14 +26,29 @@
 <br />
 <div>
   <form [formGroup]="form">
-    <select name="key1selector" formControlName="key1">
+    <select
+      name="key1selector"
+      formControlName="key1"
+      style="margin-left: 2%; width: 10%; height: 25px;"
+    >
       <option value="ctrl">Ctrl</option>
       <option value="alt">Alt</option>
       <option value="shift">Shift</option>
       <option value="escape">Escape</option>
     </select>
-    <input type="text" placeholder="second key" formControlName="key2" />
-    <button type="button" (click)="addShortcut()">add new keyCombo</button>
+    <input
+      type="text"
+      placeholder="second key"
+      formControlName="key2"
+      style="margin-left: 2%; width: 5%; height: 25px;"
+    />
+    <button
+      type="button"
+      (click)="addShortcut()"
+      style="margin-left: 2%; width: 10%;"
+    >
+      add new keyCombo
+    </button>
   </form>
 </div>
 
