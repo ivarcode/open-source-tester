@@ -20,11 +20,13 @@ export class AppComponent implements OnInit, OnDestroy {
     key1: new FormControl(''),
     key2: new FormControl('')
   });
+  listenerObjectStatus: string;
   outputArray = [];
   listeners: any[];
   constructor(private keyboardShortcutsService: KeyboardShortcutsService) {}
 
   ngOnInit() {
+    this.listenerObjectStatus = '';
     this.listeners = [];
     this.outputArray = [];
     // populating element that displays current Keyboard Listeners
@@ -80,5 +82,6 @@ export class AppComponent implements OnInit, OnDestroy {
     for (let i of this.listeners) {
       this.outputArray.push(i.output);
     }
+    this.listenerObjectStatus = 'LISTENER OBJECT ACTIVE :: contains ' + this.outputArray.length + ' listeners';
   }
 }
